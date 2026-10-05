@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+instance/
+c2.db
+.agent_id
+.pytest_cache/
+*.log
+nohup.out

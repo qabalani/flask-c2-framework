@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Agents <a href="{{ url_for('dash.logout') }}" style="float:right;font-size:14px">logout</a></h2>
+<table>
+  <tr><th>UID</th><th>Host</th><th>User</th><th>OS</th><th>IP</th><th>Last seen</th><th></th></tr>
+  {% for a in agents %}
+  <tr>
+    <td>{{ a.uid[:8] }}…</td>
+    <td>{{ a.hostname }}</td>
+    <td>{{ a.username }}</td>
+    <td>{{ a.os_info }}</td>
+    <td>{{ a.ip_address }}</td>
+    <td class="{{ 'alive' if a.alive else 'dead' }}">{{ a.last_seen }}</td>
+    <td><a href="{{ url_for('dash.agent_view', uid=a.uid) }}">open</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

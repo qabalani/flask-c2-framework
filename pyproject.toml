@@ -1,0 +1,9 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[project]
+name = "flask-c2-framework"
+version = "0.1.0"
+description = "Minimal educational C2 framework with Flask + AES-GCM"
+requires-python = ">=3.9"

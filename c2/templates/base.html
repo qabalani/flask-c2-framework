@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <title>C2 Dashboard</title>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: monospace; background:#0d1117; color:#c9d1d9; margin:2rem; }
+    a { color:#58a6ff; }
+    table { border-collapse: collapse; width:100%; margin-top:1rem; }
+    th, td { border:1px solid #30363d; padding:6px 10px; text-align:left; }
+    th { background:#161b22; }
+    input, button { padding:6px; background:#161b22; color:#c9d1d9; border:1px solid #30363d; }
+    .alive { color:#3fb950; } .dead { color:#f85149; }
+    pre { background:#161b22; padding:10px; overflow-x:auto; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+    {% for m in messages %}<p style="color:#f85149">{{ m }}</p>{% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</body>
+</html>
